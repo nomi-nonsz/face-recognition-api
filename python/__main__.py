@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_socketio import SocketIO
 import socketIO_client
 import cv2 as cv
@@ -12,11 +12,13 @@ socket = SocketIO(app)
 
 @socket.on('connect')
 def ev_connect():
-  print("Someone joined")
+  sid = request.sid
+  print(f"[sid:{sid}] Joined")
 
 @socket.on('disconnect')
 def ev_disconnect():
-  print("Someone exit")
+  sid = request.sid
+  print(f"[sid:{sid}] Exited")
   cv.destroyAllWindows()
 
 @socket.on('message')
@@ -25,9 +27,14 @@ def ev_message(data):
 
 @socket.on('cv-detect')
 def ev_detect(data):
+  # print(f"Receive Response: {data}")
+
   nparr = np.frombuffer(base64.b64decode(data), np.uint8)
+  print(f"Load buffer: {nparr}")
+
   img = cv.imdecode(nparr, cv.IMREAD_COLOR)
   result = detector.detect_face(img)
+
   socket.emit("cv-result", result)
 
 if __name__ == '__main__':

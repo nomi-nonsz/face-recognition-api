@@ -1,7 +1,9 @@
 import * as cv from "opencv4nodejs-prebuilt-install";
 
-export const cap = new cv.VideoCapture(0);
-
-export const width = cap.get(cv.CAP_PROP_FRAME_WIDTH);
-export const height = cap.get(cv.CAP_PROP_FRAME_HEIGHT);
-export const FPS = 15;
+export function getCapture (this: any) {
+  this.cap = new cv.VideoCapture(0);
+  this.width = this.cap.get(cv.CAP_PROP_FRAME_WIDTH);
+  this.height = this.cap.get(cv.CAP_PROP_FRAME_HEIGHT);
+  this.FPS = 15;
+  return this;
+}

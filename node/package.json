@@ -25,6 +25,7 @@
     "autoBuildWithoutContrib": 0
   },
   "devDependencies": {
-    "@types/express": "^4.17.21"
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.11"
   }
 }

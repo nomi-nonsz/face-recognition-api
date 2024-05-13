@@ -5,6 +5,7 @@ import * as socketio from 'socket.io';
 import * as socketio_client from 'socket.io-client';
 import path from 'path';
 import { config } from 'dotenv';
+import { writeFileSync } from 'fs';
 
 import { inter } from './webcam';
 
@@ -20,7 +21,7 @@ const io: socketio.Server = new socketio.Server({
 
 const io_client = socketio_client.io(process.env['PYTHON_URL'] || 'http://localhost:5000');
 
-const port = 3000;
+const port = 3001;
 const host = 'localhost';
 
 app.use(cors({ origin: "*" }));
@@ -32,14 +33,8 @@ app.post("/webcam", (req: express.Request, res: express.Response) => {
 })
 
 io_client.on('cv-result', (data) => {
-  app.get('/image', (req: express.Request, res: express.Response) => {
-    const header = {
-      "Content-Type": "image/jpg",
-      "Accept-Ranges": "bytes"
-    }
-    res.writeHead(200, header)
-    res.send(data);
-  })
+  writeFileSync(__dirname + "/public/example.jpg", data, 'binary');
+  console.log(`Writed File ${__dirname + "/public/example.jpg"}`)
 })
 
 server.listen(port, host, () => {

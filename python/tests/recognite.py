@@ -2,6 +2,10 @@ import cv2 as cv
 import face_recognition
 import os
 import numpy as np
+import base64
+import socketio
+
+io = socketio.Client()
 
 labels = ["Drake", "Elon", "Ryan Gosling"]
 
@@ -38,6 +42,8 @@ def recognite(path):
   cv.destroyAllWindows()
 
 def recognite_video(path):
+  io.connect('http://localhost:5000')
+
   cap = cv.VideoCapture(path)
 
   # frame_width = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
@@ -52,7 +58,11 @@ def recognite_video(path):
 
     reco(frame)
 
-    cv.imshow('Face recognition Video', frame)
+    # cv.imshow('Face recognition Video', frame)
+    _, buffer = cv.imencode(".jpg", frame)
+    encoded = base64.b64encode(buffer).decode('utf-8')
+
+    io.emit("cv-detect", encoded)
 
     if cv.waitKey(1) & 0xFF == ord('q'):
       break
