@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_socketio import SocketIO
+import socketIO_client
 import cv2 as cv
 import numpy as np
 import base64
@@ -27,6 +28,7 @@ def ev_detect(data):
   nparr = np.frombuffer(base64.b64decode(data), np.uint8)
   img = cv.imdecode(nparr, cv.IMREAD_COLOR)
   result = detector.detect_face(img)
+  socket.emit("cv-result", result)
 
 if __name__ == '__main__':
   socket.run(app, port=5000, debug=True)

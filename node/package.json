@@ -8,9 +8,11 @@
   "scripts": {
     "dev": "ts-node src/index.ts",
     "train": "ts-node src/trainer",
-    "webcam": "ts-node src/webcam"
+    "webcam": "ts-node src/webcam/run.ts"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "opencv4nodejs-prebuilt-install": "^4.1.202",
     "socket.io": "^4.7.5",

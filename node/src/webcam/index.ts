@@ -2,7 +2,7 @@ import { Mat, imencode } from "opencv4nodejs-prebuilt-install"
 import { FPS, cap } from "./capture"
 import { io } from "socket.io-client";
 
-function inter() {
+export function inter() {
   const socket = io("http://localhost:5000");
   const interval = setInterval(() => {
     const frame: Mat = cap.read();
