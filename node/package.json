@@ -7,11 +7,14 @@
   "private": true,
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "train": "ts-node src/trainer"
+    "train": "ts-node src/trainer",
+    "webcam": "ts-node src/webcam"
   },
   "dependencies": {
     "express": "^4.19.2",
     "opencv4nodejs-prebuilt-install": "^4.1.202",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
     "ts-node": "^10.9.2",
     "tsc": "^2.0.4",
     "typescript": "^5.4.5"

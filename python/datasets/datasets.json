@@ -1,0 +1,17 @@
+[
+  {
+    "label": 0,
+    "filename": "drake.jpg",
+    "name": "Drake"
+  },
+  {
+    "label": 1,
+    "filename": "elon.jpg",
+    "name": "Elon"
+  },
+  {
+    "label": 2,
+    "filename": "ryang.jpg",
+    "name": "Ryan Gosling"
+  }
+]
