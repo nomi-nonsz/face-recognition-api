@@ -22,11 +22,12 @@ def train():
     label = [item for item in datasets if item["filename"] == file][0]
 
     if file.endswith(".jpg") or file.endswith(".png"):
+      name = label["label"]
       path = os.path.join(datasets_dir, file)
       img = cv.imread(path, cv.IMREAD_GRAYSCALE)
       images.append(img)
-      labels.append(label["label"])
-      print(path)
+      labels.append(name)
+      print(f"Label [{name}]: {path}")
 
   lbphRecognizer = cv.face.LBPHFaceRecognizer_create()
   lbphRecognizer.train(images, np.array(labels))

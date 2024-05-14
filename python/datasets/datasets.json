@@ -13,5 +13,10 @@
     "label": 2,
     "filename": "ryang.jpg",
     "name": "Ryan Gosling"
+  },
+  {
+    "label": 3,
+    "filename": "linus.jpg",
+    "name": "Linus Torvalds"
   }
 ]

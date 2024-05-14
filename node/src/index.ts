@@ -28,12 +28,12 @@ app.use(cors({ origin: "*" }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/webcam", (req: express.Request, res: express.Response) => {
-  inter();
+  inter(io_client);
   res.sendStatus(200);
 })
 
 io_client.on('cv-result', (data) => {
-  writeFileSync(__dirname + "/public/example.jpg", data, 'binary');
+  writeFileSync(__dirname + "/public/example.jpg", data, 'base64');
   console.log(`Writed File ${__dirname + "/public/example.jpg"}`)
 })
 

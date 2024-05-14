@@ -6,6 +6,6 @@ from . import regonite
 def detect_face(img: cv.Mat):
   result = regonite.regonite(img)
   _, buffer = cv.imencode('.jpg', result)
-  encoded = np.array(buffer).tobytes()
-  # encoded = base64.b64encode(buffer).decode('utf-8')
-  return encoded
+  encoded = base64.b64encode(buffer).decode('utf-8')
+  mat = result
+  return encoded, buffer, mat
