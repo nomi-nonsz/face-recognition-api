@@ -90,17 +90,19 @@ def recognite_self():
       break
 
 def recognite_self2():
-  size_scale = 1
+  size_scale = 4
   cap = cv.VideoCapture(0)
 
-  labels = ["Drake", "Elon", "Ryan Gosling"]
+  labels = ["Linus", "Drake", "Elon", "Ryan Gosling"]
   encodings = []
   images = os.listdir("datasets")
+  labels = []
   for cl in images:
     if cl.endswith(".jpg"):
       curImg = cv.imread(f'datasets/{cl}')
       encode = face_recognition.face_encodings(curImg)[0]
       encodings.append(encode)
+      labels.append(cl)
 
   # frame_width = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
   # frame_height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))

@@ -32,10 +32,10 @@ app.post("/webcam", (req: express.Request, res: express.Response) => {
   res.sendStatus(200);
 })
 
-io_client.on('cv-result', (data) => {
-  writeFileSync(__dirname + "/public/example.jpg", data, 'base64');
-  console.log(`Writed File ${__dirname + "/public/example.jpg"}`)
-})
+// io_client.on('cv-result', (data) => {
+//   writeFileSync(__dirname + "/public/example.jpg", data, 'base64');
+//   console.log(`Writed File ${__dirname + "/public/example.jpg"}`)
+// })
 
 server.listen(port, host, () => {
   console.log(`Node.js Server is running at http://${host}:${port}`);

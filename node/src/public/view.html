@@ -15,7 +15,7 @@
     sio.on('connect', () => {
       console.log("Connceted Socket")
     })
-    sio.on('cv-result-base64', (data) => {
+    sio.on('cv-result', (data) => {
       console.log(data)
       img.src = `data:image/jpg;base64,${data}`;
     })

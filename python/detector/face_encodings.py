@@ -1,19 +1,19 @@
-import datasets
 import os
 import cv2 as cv
 import face_recognition
+from . import datasets
 
 def get_face_encodings():
-  datasets = datasets.getDatasets()
+  _datasets = datasets.get_datasets()
 
   labels = []
   encodings = []
   
   images = os.listdir("datasets")
   for cl in images:
-    if any(item["filename"] == cl for item in datasets) == False:
+    if any(item["filename"] == cl for item in _datasets) == False:
       continue
-    label = [item for item in datasets if item["filename"] == cl][0]
+    label = [item for item in _datasets if item["filename"] == cl][0]
 
     if cl.endswith(".jpg") or cl.endswith(".png"):
       curImg = cv.imread(f'datasets/{cl}')

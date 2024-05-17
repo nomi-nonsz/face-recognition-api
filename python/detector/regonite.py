@@ -1,5 +1,5 @@
 import cv2 as cv
-import face_encodings
+from . import face_encodings
 import numpy as np
 import face_recognition
 
@@ -31,15 +31,16 @@ def regonite_alt(frame: cv.Mat):
   encodesCurFrame = face_recognition.face_encodings(frame, facesCurFrame)
 
   for encodeFace, faceLoc in zip(encodesCurFrame, facesCurFrame):
-      matches = face_recognition.compare_faces(_face_r_encodings, encodeFace)
-      faceDis = face_recognition.face_distance(_face_r_encodings, encodeFace)
-      matchIndex = np.argmin(faceDis)
+    matches = face_recognition.compare_faces(_face_r_encodings, encodeFace)
+    faceDis = face_recognition.face_distance(_face_r_encodings, encodeFace)
+    matchIndex = np.argmin(faceDis)
 
-      if matches[matchIndex]:
-        name = _face_r_labels[matchIndex].name
-        y1, x2, y2, x1 = faceLoc
-        cv.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv.rectangle(frame, (x1, y2 - 35), (x2, y2), (0, 255, 0), cv.FILLED)
-        cv.putText(frame, name, (x1 + 6, y2 - 6), cv.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+    if matches[matchIndex]:
+      name = _face_r_labels[matchIndex].name
+      y1, x2, y2, x1 = faceLoc
+      
+      cv.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+      cv.rectangle(frame, (x1, y2 - 35), (x2, y2), (0, 255, 0), cv.FILLED)
+      cv.putText(frame, name, (x1 + 6, y2 - 6), cv.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
 
   return frame
