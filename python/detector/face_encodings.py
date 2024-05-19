@@ -21,4 +21,4 @@ def get_face_encodings():
       encodings.append(encode)
       labels.append(label["label"])
 
-  return encodings, labels
+  return encodings, labels, _datasets

@@ -4,6 +4,7 @@ import os
 import numpy as np
 import base64
 import socketio
+import threading
 
 io = socketio.Client()
 
@@ -120,17 +121,17 @@ def recognite_self2():
     encodesCurFrame = face_recognition.face_encodings(frame_smoll, facesCurFrame)
  
     for encodeFace, faceLoc in zip(encodesCurFrame, facesCurFrame):
-        matches = face_recognition.compare_faces(encodings, encodeFace)
-        faceDis = face_recognition.face_distance(encodings, encodeFace)
-        matchIndex = np.argmin(faceDis)
- 
-        if matches[matchIndex]:
-          name = labels[matchIndex]
-          y1, x2, y2, x1 = faceLoc
-          y1, x2, y2, x1 = y1*size_scale, x2*size_scale, y2*size_scale, x1*size_scale
-          cv.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-          cv.rectangle(frame, (x1, y2 - 35), (x2, y2), (0, 255, 0), cv.FILLED)
-          cv.putText(frame, name, (x1 + 6, y2 - 6), cv.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+      matches = face_recognition.compare_faces(encodings, encodeFace)
+      faceDis = face_recognition.face_distance(encodings, encodeFace)
+      matchIndex = np.argmin(faceDis)
+
+      if matches[matchIndex]:
+        name = labels[matchIndex]
+        y1, x2, y2, x1 = faceLoc
+        y1, x2, y2, x1 = y1*size_scale, x2*size_scale, y2*size_scale, x1*size_scale
+        cv.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv.rectangle(frame, (x1, y2 - 35), (x2, y2), (0, 255, 0), cv.FILLED)
+        cv.putText(frame, name, (x1 + 6, y2 - 6), cv.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
 
     cv.imshow('Face recognition Video', frame)
 

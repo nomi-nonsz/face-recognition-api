@@ -5,6 +5,7 @@ import socketIO_client
 import cv2 as cv
 import numpy as np
 import base64
+import threading
 
 import detector
 
@@ -27,18 +28,24 @@ def ev_disconnect():
 def ev_message(data):
   print(data)
 
-@socket.on('cv-detect')
-def ev_detect(data):
-  # print(f"Receive Response: {data}")
-
+def process_img(data, sid):
   nparr = np.frombuffer(base64.b64decode(data), np.uint8)
   print(f"Loaded buffer: {nparr}")
-
   img = cv.imdecode(nparr, cv.IMREAD_COLOR)
-
-  result, _, mat_result = detector.detect_face(img)
-  cv.imwrite("example.jpg", mat_result)
+  if img is None:
+    print("Image is Empty")
+    return
+  result, _, mat = detector.detect_face(img)
   socket.emit("cv-result", result)
+
+@socket.on('cv-detect')
+def ev_detect(data):
+  sid = request.sid
+  # print(f"Receive Response: {data}")
+
+  process_img(data, sid)
+  # thread = threading.Thread(target=process_img, args={data, sid})
+  # thread.start()
 
 if __name__ == '__main__':
   socket.run(app, port=5000, debug=True)

@@ -16,7 +16,7 @@
       console.log("Connceted Socket")
     })
     sio.on('cv-result', (data) => {
-      console.log(data)
+      console.log(`Received: ${data.slice(1000,1300)}...`)
       img.src = `data:image/jpg;base64,${data}`;
     })
   </script>
