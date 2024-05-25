@@ -7,7 +7,7 @@ import path from 'path';
 import { config } from 'dotenv';
 import { writeFileSync } from 'fs';
 
-import { inter } from './webcam';
+import * as webcam from './webcam';
 
 config();
 
@@ -27,8 +27,23 @@ const host = 'localhost';
 app.use(cors({ origin: "*" }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.post("/webcam", (req: express.Request, res: express.Response) => {
-  inter(io_client);
+app.post("/webcam/:action", (req: express.Request, res: express.Response) => {
+  const act = req.params["action"];
+
+  switch (act) {
+    case "true":
+      console.log("Starting webcam");
+      webcam.inter(io_client);
+      break;
+    case "false":
+      console.log("Stopping webcam");
+      webcam.stop();
+      break;
+    default:
+      res.status(400).send("It must be true/false value");
+      return;
+  }
+
   res.sendStatus(200);
 })
 

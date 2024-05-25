@@ -5,19 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pfft</title>
   <script src="./scripts/lib/socket.io.min.js"></script>
+  <script src="./scripts/lib/axios.min.js"></script>
 </head>
 <body>
   <img alt="Videos Goes Here" id="stream">
+  <br>
+  <button id="stm-start">Start</button>
+  <button id="stm-stop">Stop</button>
   <script>
     const img = document.getElementById("stream");
     
     const sio = io.connect('http://127.0.0.1:5000/');
+
     sio.on('connect', () => {
       console.log("Connceted Socket")
     })
     sio.on('cv-result', (data) => {
       console.log(`Received: ${data.slice(1000,1300)}...`)
       img.src = `data:image/jpg;base64,${data}`;
+    })
+
+    document.getElementById("stm-start").addEventListener("click", function() {
+      axios.post("http://localhost:3001/webcam/true");
+    })
+    document.getElementById("stm-stop").addEventListener("click", function() {
+      axios.post("http://localhost:3001/webcam/false");
     })
   </script>
 </body>

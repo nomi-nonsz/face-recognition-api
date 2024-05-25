@@ -13,7 +13,7 @@ cascade = cv.CascadeClassifier(cv.data.haarcascades + 'haarcascade_frontalface_d
 labels = datasets.get_datasets()
 _face_r_encodings, _face_r_labels, _face_r_datasets = face_encodings.get_face_encodings()
 
-def regonite(img: cv.Mat) -> cv.Mat:
+def lbph(img: cv.Mat) -> cv.Mat:
   s_img = cv.resize(img, (0, 0), None, 1/_SCALE, 1/_SCALE)
   g_img = cv.cvtColor(s_img, cv.COLOR_BGR2GRAY)
   faces = cascade.detectMultiScale(g_img, scaleFactor=1.1, minNeighbors=5)
@@ -32,7 +32,7 @@ def regonite(img: cv.Mat) -> cv.Mat:
 
   return img
 
-def regonite_alt(frame: cv.Mat):
+def hog(frame: cv.Mat):
   s_frame = cv.resize(frame, (0, 0), None, 1/_SCALE, 1/_SCALE)
   facesCurFrame = face_recognition.face_locations(s_frame)
   encodesCurFrame = face_recognition.face_encodings(s_frame, facesCurFrame)
