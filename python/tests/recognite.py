@@ -12,7 +12,7 @@ labels = ["Drake", "Elon", "Ryan Gosling", "Linus Torvalds"]
 
 def reco(img_colored):
   recognizer = cv.face.LBPHFaceRecognizer_create()
-  recognizer.read("face_model.yml")
+  recognizer.read("models/face_model.yml")
 
   img = cv.cvtColor(img_colored, cv.COLOR_BGR2GRAY)
 

@@ -7,7 +7,7 @@ import face_recognition
 _SCALE = 1
 
 recogniter = cv.face.LBPHFaceRecognizer_create()
-recogniter.read("face_model.yml")
+recogniter.read("models/lbph_face_model.yml")
 cascade = cv.CascadeClassifier(cv.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 labels = datasets.get_datasets()

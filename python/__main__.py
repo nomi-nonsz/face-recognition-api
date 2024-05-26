@@ -31,7 +31,6 @@ def ev_message(data):
 def process_img(data, sid):
   nparr = np.frombuffer(base64.b64decode(data), np.uint8)
   print(f"Loaded buffer: {nparr}")
-  socket.emit("cv-result", data)
   img = cv.imdecode(nparr, cv.IMREAD_COLOR)
   if img is None:
     print("Image is Empty")
