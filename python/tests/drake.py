@@ -17,7 +17,7 @@ def send ():
     _, buffer = cv.imencode(".jpg", frame)
     enc = base64.b64encode(buffer).decode('utf-8')
     sio.emit("cv-detect", enc)
-    time.sleep(.001)
+    time.sleep(int(vid.get(cv.CAP_PROP_FPS)) / 1000)
   sio.wait()
 
 send()

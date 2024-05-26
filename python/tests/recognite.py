@@ -60,11 +60,11 @@ def recognite_video(path):
 
     reco(frame)
 
-    cv.imshow('Face recognition Video', frame)
-    # _, buffer = cv.imencode(".jpg", frame)
-    # encoded = base64.b64encode(buffer).decode('utf-8')
+    # cv.imshow('Face recognition Video', frame)
+    _, buffer = cv.imencode(".jpg", frame)
+    encoded = base64.b64encode(buffer).decode('utf-8')
 
-    # io.emit("cv-detect", encoded)
+    io.emit("cv-detect", encoded)
 
     if cv.waitKey(1) & 0xFF == ord('q'):
       break
